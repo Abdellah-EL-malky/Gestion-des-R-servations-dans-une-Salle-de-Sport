@@ -77,5 +77,5 @@ WHERE activity_id = 2;
 -- Requête de jointure
 SELECT Members.name, Members.first_name, Activities.name AS activity_name, Reservations.reservation_date, Reservations.status
 FROM Members
-JOIN Reservations ON Members.member_id = Reservations.member_id
-JOIN Activities ON Reservations.activity_id = Activities.activity_id;
+LEFT JOIN Reservations ON Members.member_id = Reservations.member_id
+LEFT JOIN Activities ON Reservations.activity_id = Activities.activity_id;
