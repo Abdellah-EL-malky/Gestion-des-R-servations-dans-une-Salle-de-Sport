@@ -29,8 +29,8 @@ CREATE TABLE Reservations (
     			ON DELETE CASCADE
     			ON UPDATE CASCADE,
     FOREIGN KEY (activity_id) REFERENCES Activities(activity_id)
-			ON DELETE CASCADE
-    			ON UPDATE CASCADE,
+			    ON DELETE CASCADE
+    			ON UPDATE CASCADE
 );
 
 
@@ -79,6 +79,3 @@ SELECT Members.name, Members.first_name, Activities.name AS activity_name, Reser
 FROM Members
 JOIN Reservations ON Members.member_id = Reservations.member_id
 JOIN Activities ON Reservations.activity_id = Activities.activity_id;
-
-
-
