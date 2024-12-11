@@ -1,0 +1,84 @@
+-- Table membres
+CREATE TABLE Members (
+    member_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    phone_number VARCHAR(15) NOT NULL
+);
+
+-- Table activités
+CREATE TABLE Activities (
+    activity_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    description TEXT,
+    capacity INT(11) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    disponibility TINYINT(1) DEFAULT 1
+);
+
+-- Table réservations
+CREATE TABLE Reservations (
+    reservation_id INT PRIMARY KEY AUTO_INCREMENT,
+    member_id INT NOT NULL,
+    activity_id INT NOT NULL,
+    reservation_date DATETIME NOT NULL,
+    status ENUM('Confirmed', 'Cancelled') DEFAULT 'Confirmed',
+    FOREIGN KEY (member_id) REFERENCES Members(member_id)
+    			ON DELETE CASCADE
+    			ON UPDATE CASCADE,
+    FOREIGN KEY (activity_id) REFERENCES Activities(activity_id)
+			ON DELETE CASCADE
+    			ON UPDATE CASCADE,
+);
+
+
+-- Opération d'insertion
+INSERT INTO Members (name, first_name, email, phone_number)
+VALUES ('Martin', 'Pierre', 'pierre.martin@example.com', '0123456789');
+
+-- Activité Zumba
+INSERT INTO Activities (name, description, capacity, start_date, end_date, disponibility)
+VALUES ('Zumba', 'Cours de Zumba avec une ambiance énergique et musicale', 30, '2024-12-12', '2024-12-12', 1);
+
+-- Activité Yoga
+INSERT INTO Activities (name, description, capacity, start_date, end_date, disponibility)
+VALUES ('Yoga', 'Cours de Yoga pour détente et bien-être', 20, '2024-12-14', '2024-12-14', 1);
+
+-- Activité Entraînement de Force
+INSERT INTO Activities (name, description, capacity, start_date, end_date, disponibility)
+VALUES ('Entraînement de Force', 'Séance d'entrainement musculaire pour la force et l'endurance', 15, '2024-12-15', '2024-12-15', 1);
+
+-- Réservation pour un membre au cours de Zumba
+INSERT INTO Reservations (member_id, activity_id, reservation_date, status)
+VALUES (1, 1, '2024-12-12 09:00:00', 'Confirmed');
+
+-- Opération de mise à jour
+UPDATE Members
+SET phone_number = '0987654321'
+WHERE member_id = 1;
+
+UPDATE Reservations
+SET status = 'Cancelled'
+WHERE reservation_id = 1;
+
+UPDATE Activities
+SET start_date = CURDATE(), end_date = CURDATE()
+WHERE activity_id = 2;
+
+-- Opération de suppression
+DELETE FROM Members
+WHERE member_id = 1;
+
+DELETE FROM Activities
+WHERE activity_id = 2;
+
+-- Requête de jointure
+SELECT Members.name, Members.first_name, Activities.name AS activity_name, Reservations.reservation_date, Reservations.status
+FROM Members
+JOIN Reservations ON Members.member_id = Reservations.member_id
+JOIN Activities ON Reservations.activity_id = Activities.activity_id;
+
+
+
