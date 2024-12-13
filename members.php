@@ -1,3 +1,37 @@
+<?php
+
+$host = 'localhost';            
+$db   = 'gym';   
+$user = 'root';        
+$pass = '';        
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT 
+            r.reservation_id, 
+            m.name AS member_name, 
+            m.first_name, 
+            m.email, 
+            m.phone_number,
+            a.name AS activity_name, 
+            a.description, 
+            a.capacity, 
+            a.start_date, 
+            a.end_date, 
+            a.disponibility,
+            r.reservation_date, 
+            r.statut
+        FROM reservations r
+        JOIN members m ON r.member_id = m.member_id
+        JOIN activities a ON r.activity_id = a.activity_id
+        ORDER BY r.reservation_date DESC";
+
+$result = $conn->query($sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,39 +52,54 @@
         </div>
     </nav>
 
-    <div class="page-content">
-        <h1>Active Members</h1>
-        <div class="members-container">
-            <div class="members-header">
-                <div class="member-field">Name</div>
-                <div class="member-field">Activity</div>
-                <div class="member-field">Contact</div>
-            </div>
-            <div class="members-list">
-                <!-- Example members -->
-                <div class="member-card">
-                    <div class="member-field">John Smith</div>
-                    <div class="member-field">Boxing</div>
-                    <div class="member-field">john@example.com</div>
-                </div>
-                <div class="member-card">
-                    <div class="member-field">Sarah Johnson</div>
-                    <div class="member-field">Yoga</div>
-                    <div class="member-field">sarah@example.com</div>
-                </div>
-                <div class="member-card">
-                    <div class="member-field">Mike Wilson</div>
-                    <div class="member-field">Weightlifting</div>
-                    <div class="member-field">mike@example.com</div>
-                </div>
-                <div class="member-card">
-                    <div class="member-field">Emma Davis</div>
-                    <div class="member-field">Pilates</div>
-                    <div class="member-field">emma@example.com</div>
-                </div>
-            </div>
-        </div>
+    <<div class="page-content">
+    <h1>Reservation List</h1>
+    <div class="table-container">
+        <?php
+        if ($result && $result->num_rows > 0) {
+            echo "<table border='1'>
+                    <tr>
+                        <th>Reservation ID</th>
+                        <th>Member Name</th>
+                        <th>Member First Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Activity Name</th>
+                        <th>Description</th>
+                        <th>Capacity</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Disponibility</th>
+                        <th>Reservation Date</th>
+                        <th>Status</th>
+                    </tr>";
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>
+                        <td>" . htmlspecialchars($row['reservation_id']) . "</td>
+                        <td>" . htmlspecialchars($row['member_name']) . "</td>
+                        <td>" . htmlspecialchars($row['first_name']) . "</td>
+                        <td>" . htmlspecialchars($row['email']) . "</td>
+                        <td>" . htmlspecialchars($row['phone_number']) . "</td>
+                        <td>" . htmlspecialchars($row['activity_name']) . "</td>
+                        <td>" . htmlspecialchars($row['description']) . "</td>
+                        <td>" . htmlspecialchars($row['capacity']) . "</td>
+                        <td>" . htmlspecialchars($row['start_date']) . "</td>
+                        <td>" . htmlspecialchars($row['end_date']) . "</td>
+                        <td>" . htmlspecialchars($row['disponibility']) . "</td>
+                        <td>" . htmlspecialchars($row['reservation_date']) . "</td>
+                        <td>" . htmlspecialchars($row['statut']) . "</td>
+                    </tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "No reservations found.";
+        }
+
+        // Close the connection
+        $conn->close();
+        ?>
     </div>
+</div>
 
     <footer class="footer">
         <div class="footer-content">
