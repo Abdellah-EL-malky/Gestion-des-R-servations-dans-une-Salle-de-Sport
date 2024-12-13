@@ -1,5 +1,4 @@
 <?php
-
 $host = 'localhost';            
 $db   = 'gym';   
 $user = 'root';        
@@ -24,24 +23,28 @@ $sql = "SELECT
             a.end_date, 
             a.disponibility,
             r.reservation_date, 
-            r.statut
+            r.status
         FROM reservations r
         JOIN members m ON r.member_id = m.member_id
         JOIN activities a ON r.activity_id = a.activity_id
         ORDER BY r.reservation_date DESC";
 
 $result = $conn->query($sql);
+
+if (!$result) {
+    die("Error executing query: " . $conn->error);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Members</title>
+    <title>Reservations</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav class="navbar">
+    <nav class="navbar">
         <div class="nav-content">
             <div class="logo">IRONCORE</div>
             <ul class="nav-links">
@@ -52,54 +55,57 @@ $result = $conn->query($sql);
         </div>
     </nav>
 
-    <<div class="page-content">
-    <h1>Reservation List</h1>
-    <div class="table-container">
-        <?php
-        if ($result && $result->num_rows > 0) {
-            echo "<table border='1'>
-                    <tr>
-                        <th>Reservation ID</th>
-                        <th>Member Name</th>
-                        <th>Member First Name</th>
-                        <th>Email</th>
-                        <th>Phone Number</th>
-                        <th>Activity Name</th>
-                        <th>Description</th>
-                        <th>Capacity</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Disponibility</th>
-                        <th>Reservation Date</th>
-                        <th>Status</th>
-                    </tr>";
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr>
-                        <td>" . htmlspecialchars($row['reservation_id']) . "</td>
-                        <td>" . htmlspecialchars($row['member_name']) . "</td>
-                        <td>" . htmlspecialchars($row['first_name']) . "</td>
-                        <td>" . htmlspecialchars($row['email']) . "</td>
-                        <td>" . htmlspecialchars($row['phone_number']) . "</td>
-                        <td>" . htmlspecialchars($row['activity_name']) . "</td>
-                        <td>" . htmlspecialchars($row['description']) . "</td>
-                        <td>" . htmlspecialchars($row['capacity']) . "</td>
-                        <td>" . htmlspecialchars($row['start_date']) . "</td>
-                        <td>" . htmlspecialchars($row['end_date']) . "</td>
-                        <td>" . htmlspecialchars($row['disponibility']) . "</td>
-                        <td>" . htmlspecialchars($row['reservation_date']) . "</td>
-                        <td>" . htmlspecialchars($row['statut']) . "</td>
-                    </tr>";
+    <div class="page-content">
+        <h1>Reservation List</h1>
+        <div class="table-container">
+            <?php
+            if ($result->num_rows > 0) {
+                echo "<table>
+                        <thead>
+                            <tr>
+                                <th>Reservation ID</th>
+                                <th>Member Name</th>
+                                <th>Member First Name</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                                <th>Activity Name</th>
+                                <th>Description</th>
+                                <th>Capacity</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Disponibility</th>
+                                <th>Reservation Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>";
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>
+                            <td>" . htmlspecialchars($row['reservation_id']) . "</td>
+                            <td>" . htmlspecialchars($row['member_name']) . "</td>
+                            <td>" . htmlspecialchars($row['first_name']) . "</td>
+                            <td>" . htmlspecialchars($row['email']) . "</td>
+                            <td>" . htmlspecialchars($row['phone_number']) . "</td>
+                            <td>" . htmlspecialchars($row['activity_name']) . "</td>
+                            <td>" . htmlspecialchars($row['description']) . "</td>
+                            <td>" . htmlspecialchars($row['capacity']) . "</td>
+                            <td>" . htmlspecialchars($row['start_date']) . "</td>
+                            <td>" . htmlspecialchars($row['end_date']) . "</td>
+                            <td>" . htmlspecialchars($row['disponibility']) . "</td>
+                            <td>" . htmlspecialchars($row['reservation_date']) . "</td>
+                            <td>" . htmlspecialchars($row['status']) . "</td>
+                        </tr>";
+                }
+                echo "</tbody></table>";
+            } else {
+                echo "<p>No reservations found.</p>";
             }
-            echo "</table>";
-        } else {
-            echo "No reservations found.";
-        }
 
-        // Close the connection
-        $conn->close();
-        ?>
+        
+            $conn->close();
+            ?>
+        </div>
     </div>
-</div>
 
     <footer class="footer">
         <div class="footer-content">

@@ -1,5 +1,4 @@
 <?php
-
 $host = 'localhost';           
 $db   = 'gym';   
 $user = 'root';        
@@ -46,7 +45,7 @@ $conn->close();
     <div class="page-content">
         <h1>Activity Reservation</h1>
         <div class="form-container">
-            <form class="reservation-form" action="process_reservation.php" method="POST">
+            <form class="reservation-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                 <div class="form-group">
                     <label for="name">Last Name:</label>
                     <input type="text" id="name" name="name" required>
@@ -57,7 +56,7 @@ $conn->close();
                 </div>
                 <div class="form-group">
                     <label for="phone_number">Phone Number:</label>
-                    <input type="tel" id="phone_number" name="phone_number" required>
+                    <input type="tel" id="phone_number" name="phone_number" pattern="[0-9]{10}" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
