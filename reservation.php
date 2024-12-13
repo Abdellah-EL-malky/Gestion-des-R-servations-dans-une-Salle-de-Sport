@@ -58,22 +58,6 @@ if ($result && $result->num_rows > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservation</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .message {
-            margin: 20px 0;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-    </style>
 </head>
 <body>
 <nav class="navbar">

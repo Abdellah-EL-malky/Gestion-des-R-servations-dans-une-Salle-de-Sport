@@ -21,28 +21,6 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Membres</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .table-container {
-            overflow-x: auto;
-            margin-top: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .error {
-            color: red;
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
     <nav class="navbar">
