@@ -19,8 +19,37 @@
     </nav>
 
     <div class="page-content">
-        <h1>Members Area</h1>
-        <p>Members page content will go here</p>
+        <h1>Active Members</h1>
+        <div class="members-container">
+            <div class="members-header">
+                <div class="member-field">Name</div>
+                <div class="member-field">Activity</div>
+                <div class="member-field">Contact</div>
+            </div>
+            <div class="members-list">
+                <!-- Example members -->
+                <div class="member-card">
+                    <div class="member-field">John Smith</div>
+                    <div class="member-field">Boxing</div>
+                    <div class="member-field">john@example.com</div>
+                </div>
+                <div class="member-card">
+                    <div class="member-field">Sarah Johnson</div>
+                    <div class="member-field">Yoga</div>
+                    <div class="member-field">sarah@example.com</div>
+                </div>
+                <div class="member-card">
+                    <div class="member-field">Mike Wilson</div>
+                    <div class="member-field">Weightlifting</div>
+                    <div class="member-field">mike@example.com</div>
+                </div>
+                <div class="member-card">
+                    <div class="member-field">Emma Davis</div>
+                    <div class="member-field">Pilates</div>
+                    <div class="member-field">emma@example.com</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="footer">

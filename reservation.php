@@ -19,8 +19,45 @@
     </nav>
 
     <div class="page-content">
-        <h1>Make a Reservation</h1>
-        <p>Reservation page content will go here</p>
+        <h1>Activity Reservation</h1>
+        <div class="form-container">
+            <form class="reservation-form">
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="activity">Select Activity:</label>
+                    <select id="activity" name="activity" required>
+                        <option value="">Choose an activity</option>
+                        <option value="yoga">Yoga Class</option>
+                        <option value="spinning">Spinning</option>
+                        <option value="boxing">Boxing</option>
+                        <option value="weightlifting">Weightlifting</option>
+                        <option value="pilates">Pilates</option>
+                        <option value="zumba">Zumba</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-btn">Reserve Now</button>
+            </form>
+        </div>
     </div>
 
     <footer class="footer">
